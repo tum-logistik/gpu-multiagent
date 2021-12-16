@@ -50,7 +50,7 @@ class DemoNashCoopEnv(Environment):
     def execute(self, actions):
         # Single shared environment logic, plus per-actor perspective
         if np.abs(actions[0] - actions[1]) == 1:
-            reward = 2 # actions[0] + actions[1]
+            reward = actions[0] + actions[1]
         else:
             reward = 0
         
