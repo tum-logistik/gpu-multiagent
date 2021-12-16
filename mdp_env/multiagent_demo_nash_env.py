@@ -52,7 +52,7 @@ class DemoNashCoopEnv(Environment):
         a1 = actions[0] - 2
         a2 = actions[1] - 2
 
-        if np.abs(a1 - a1) == 1:
+        if np.abs(a1 - a2) == 1:
             reward = a1 + a2
         else:
             reward = 0
