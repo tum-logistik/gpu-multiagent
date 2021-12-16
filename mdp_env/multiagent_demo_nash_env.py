@@ -54,7 +54,11 @@ class DemoNashCoopEnv(Environment):
         else:
             reward = 0
         
-        self._states = self._states + reward
+        if self._states + reward > 10:
+            self._states
+        else:
+            self._states = self._states + reward
+        
         states = np.stack([self._states, self._states], axis=0)
         terminal = np.stack([False, False], axis=0)
         rewards = np.stack([reward, reward], axis=0)
