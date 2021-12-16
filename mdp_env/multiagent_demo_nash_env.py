@@ -49,15 +49,16 @@ class DemoNashCoopEnv(Environment):
 
     def execute(self, actions):
         # Single shared environment logic, plus per-actor perspective
-        if np.abs( actions[0] - actions[1]) == 1:
+        if np.abs(actions[0] - actions[1]) == 1:
             reward = np.max(self._states) + actions[0] + actions[1]
         else:
             reward = np.max(self._states)
         
+        self._states = reward
         states = np.stack([self._states, self._states], axis=0)
         terminal = np.stack([False, False], axis=0)
         reward = np.stack([reward, reward], axis=0)
-        
+
         # Always for multi-actor environments: update parallel indices, and return per-actor values
         self._parallel_indices = self._parallel_indices[~terminal]
         return self._parallel_indices.copy(), states, terminal, reward
