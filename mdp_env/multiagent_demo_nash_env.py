@@ -29,7 +29,7 @@ class DemoNashCoopEnv(Environment):
         return dict(type='int', num_values=11)
 
     def actions(self):
-        return dict(type='int', num_values=3)
+        return dict(type='int', num_values=5)
 
     def num_actors(self):
         return 1  # Indicates that environment has multiple actors
@@ -49,8 +49,11 @@ class DemoNashCoopEnv(Environment):
 
     def execute(self, actions):
         # Single shared environment logic, plus per-actor perspective
-        if np.abs(actions[0] - actions[1]) == 1:
-            reward = actions[0] + actions[1]
+        a1 = actions[0] - 2
+        a2 = actions[1] - 2
+
+        if np.abs(a1 - a1) == 1:
+            reward = a1 + 2
         else:
             reward = 0
         
