@@ -41,7 +41,7 @@ class DemoNashCoopEnv(Environment):
         # Single shared environment logic, plus per-actor perspective
         self._states = np.random.randint(0, high=10)
         self.second_actor = True
-        
+
         states = np.stack([self._states, self._states], axis=0)
 
         # Always for multi-actor environments: return per-actor values
@@ -49,19 +49,15 @@ class DemoNashCoopEnv(Environment):
 
     def execute(self, actions):
         # Single shared environment logic, plus per-actor perspective
-        if self.second_actor:
-            self.second_actor = self.second_actor and not (np.random.random_sample() < 0.1)
-            terminal = np.stack([False, False], axis=0)
-            delta = (actions[0] - 1) - (actions[1] - 1)
-            rand_val = np.clip(self._states + delta, a_min=0, a_max=10)
-            states = np.stack([self._states, rand_val], axis=0)
+        if np.abs( actions[0] - actions[1]) == 1:
+            reward = np.max(self._states) + actions[0] + actions[1]
         else:
-            terminal = np.stack([False, False], axis=0)
-            delta = (actions[0] - 1)
-            self._states = np.clip(self._states + delta, a_min=0, a_max=10)
-            states = np.stack([self._states, self._states], axis=0)
-        reward = np.stack([self._states, 10 - self._states], axis=0)
-
+            reward = np.max(self._states)
+        
+        states = np.stack([self._states, self._states], axis=0)
+        terminal = np.stack([False, False], axis=0)
+        reward = np.stack([reward, reward], axis=0)
+        
         # Always for multi-actor environments: update parallel indices, and return per-actor values
         self._parallel_indices = self._parallel_indices[~terminal]
         return self._parallel_indices.copy(), states, terminal, reward
