@@ -53,12 +53,14 @@ class DemoNashCoopEnv(Environment):
         a2 = actions[1] - 2
 
         if np.abs(a1 - a1) == 1:
-            reward = a1 + 2
+            reward = a1 + a2
         else:
             reward = 0
         
         if self._states + reward > 10:
-            self._states = self._states
+            self._states = 10
+        elif self._states + reward < 0:
+            self._states = 0
         else:
             self._states = self._states + reward
         
