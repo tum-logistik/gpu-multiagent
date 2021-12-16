@@ -57,11 +57,11 @@ class DemoNashCoopEnv(Environment):
         self._states = reward
         states = np.stack([self._states, self._states], axis=0)
         terminal = np.stack([False, False], axis=0)
-        reward = np.stack([reward, reward], axis=0)
+        rewards = np.stack([reward, reward], axis=0)
 
         # Always for multi-actor environments: update parallel indices, and return per-actor values
         self._parallel_indices = self._parallel_indices[~terminal]
-        return self._parallel_indices.copy(), states, terminal, reward
+        return self._parallel_indices.copy(), states, terminal, rewards
     
     def is_vectorizable(self):
         return True
