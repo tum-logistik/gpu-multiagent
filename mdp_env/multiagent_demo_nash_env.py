@@ -43,14 +43,14 @@ class DemoNashCoopEnv(Environment):
         self.second_actor = True
 
         states = np.stack([self._states, self._states], axis=0)
-        
+
         # Always for multi-actor environments: return per-actor values
         return self._parallel_indices.copy(), states
 
     def execute(self, actions):
         # Single shared environment logic, plus per-actor perspective
         if np.abs(actions[0] - actions[1]) == 1:
-            reward = actions[0] + actions[1]
+            reward = 2 # actions[0] + actions[1]
         else:
             reward = 0
         
