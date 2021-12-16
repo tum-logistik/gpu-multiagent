@@ -28,7 +28,7 @@ class MultiactorEnvironment(Environment):
         return dict(type='int', num_values=3)
 
     def num_actors(self):
-        return 1  # Indicates that environment has multiple actors
+        return 2  # Indicates that environment has multiple actors
 
     def reset(self, num_parallel = 1):
         # Always for multi-actor environments: initialize parallel indices
