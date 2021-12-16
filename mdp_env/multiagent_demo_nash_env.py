@@ -55,7 +55,7 @@ class DemoNashCoopEnv(Environment):
             reward = 0
         
         if self._states + reward > 10:
-            self._states
+            self._states = self._states
         else:
             self._states = self._states + reward
         
